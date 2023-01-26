@@ -1,0 +1,18 @@
+{{ if .Values.green.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app:  {{ .Release.Name }}-green
+  name:  {{ .Release.Name }}-green
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: {{ .Release.Name }}-green
+    type: {{ .Values.green.Type }} 
+  type: ClusterIP
+{{ end }}

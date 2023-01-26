@@ -1,0 +1,15 @@
+
+green:
+  enabled: false
+  Image: nginx:1.22.1
+  Port: 80
+  Type: app
+
+blue:
+  enabled: false
+  Image: httpd:2.4.55
+  Port: 80
+  Type: app  
+
+
+Replicas: 1

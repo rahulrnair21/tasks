@@ -1,0 +1,32 @@
+{{ if .Values.green.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Release.Name }}-green
+    type: {{ .Values.green.Type }}   
+  name: {{ .Release.Name }}-green
+spec:
+  replicas: {{ .Values.Replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-green
+      type: {{ .Values.green.Type }} 
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-green
+        type: {{ .Values.green.Type }}  
+    spec:
+      containers:
+      - image: {{ .Values.green.Image }}
+        name: {{ .Release.Name }}-green
+        ports:
+        - containerPort: {{ .Values.green.Port }}
+{{ end }}

@@ -1,0 +1,28 @@
+---
+- hosts: '{{ host }}'
+  gather_facts: True
+  remote_user: ansibleuser
+  become_user: root
+  become: yes
+  vars:
+   - istio_version: "1.16.1"
+  tasks:
+    - name: Add MicroK8s snap
+      snap:
+        name: microk8s
+        channel: latest/stable
+        state: present
+        classic: true
+    - name: Start MicroK8s
+      shell: microk8s start
+    - name: Download Istio
+      get_url:
+        url: https://github.com/istio/istio/releases/download/{{ istio_version }}/istio-{{ istio_version }}-linux-amd64.tar.gz
+        dest: /tmp/istio.tar.gz
+    - name: Install Istio
+      shell: |
+        mkdir -p /root/.kube
+        microk8s config view  > /root/.kube/config
+        tar -xzf /tmp/istio.tar.gz -C /tmp/
+        mv /tmp/istio-{{ istio_version }} /tmp/istio
+        echo y | /tmp/istio/bin/istioctl install 

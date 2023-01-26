@@ -1,0 +1,32 @@
+{{ if .Values.blue.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Release.Name }}-blue
+    type: {{ .Values.blue.Type }}   
+  name: {{ .Release.Name }}-blue
+spec:
+  replicas: {{ .Values.Replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-blue
+      type: {{ .Values.blue.Type }} 
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-blue
+        type: {{ .Values.blue.Type }}  
+    spec:
+      containers:
+      - image: {{ .Values.blue.Image }}
+        name: {{ .Release.Name }}-blue
+        ports:
+        - containerPort: {{ .Values.blue.Port }}
+{{ end }}
