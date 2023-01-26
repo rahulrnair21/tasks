@@ -21,7 +21,7 @@ Solution ->  echo y | /tmp/istio/bin/istioctl install
 
 
 
-Blue-Green deployment on the above 
+#Blue-Green deployment on the above 
 
 Use the following command to deploy . Make sure to take the .kube/config file in your local .kube 
 
