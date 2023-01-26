@@ -1,3 +1,5 @@
+# Ansible script for installation of microk8s 
+
 The provided ansible scirpt can install microk8s on an unbuntu 22.04.Kindly update the ansible_microk8s/inventory with the ip of the machine under myvm . Use the below command 
 
 cd ansible_microk8s
@@ -21,11 +23,11 @@ Solution ->  echo y | /tmp/istio/bin/istioctl install
 
 
 
-#Blue-Green deployment on the above 
+# Blue-Green deployment on the above 
 
 Use the following command to deploy . Make sure to take the .kube/config file in your local .kube 
 
-# For deploying green 
+#For deploying green 
 ./bgdeploy.sh green  
 
 #For deploying blue 
